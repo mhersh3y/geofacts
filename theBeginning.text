@@ -1,0 +1,11 @@
+User tweets @GeoFact
+GeoFact tweets back a location based fact
+		If the location is specified in the tweet 
+			then GeoFacts tweets back a fact based on the specified location
+		Else the location is not specified in the tweet 
+			then grab the location from the twitter user who tweeted @GeoFact
+			then GeoFacts tweets back a fact based on user location
+		Else not able to identify any location 
+			then GeoFacts tweet back a randomly chosen location based fact
+
+Fact source: 50States.com
