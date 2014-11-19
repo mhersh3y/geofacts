@@ -1,5 +1,5 @@
 User tweets @GeoFact
-GeoFact tweets back a location based fact
+GeoFact tweets back a location based fact!
 		If the location is specified in the tweet 
 			then GeoFacts tweets back a fact based on the specified location
 		Else the location is not specified in the tweet 
