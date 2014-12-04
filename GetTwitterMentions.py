@@ -114,11 +114,8 @@ def GetUsernameAndText():
     #[('FOO','tweet'), ('Lady Gaga', 'raarh')]
 
 
-def GetLocFromMention():
-    return "loc from Mention"
-
-def GetLocNotStated():
-    return "loc Not Stated"
+def find_state(tweet):
+    return next((state for state in stateFull if state in tweet), None)
 
 def extract_states():
     states = []
@@ -128,12 +125,6 @@ def extract_states():
         state = find_state(text)
         states.append(state)
     return states
-
-def find_state(tweet):
-    return next((state for state in stateFull if state in tweet), None)
-
-
-
 
 def main():
     """ Main function """
