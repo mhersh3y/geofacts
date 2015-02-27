@@ -1,10 +1,18 @@
 # pip install requests
 # pip install requests-oauthlib
+import urlparse
+import json
+import requests
+from requests_oauthlib import OAuth1
+from pprint import pprint
+
+stateFull = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
+stateAbbr = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NM', 'NY', 'NJ', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
 
 
 # API secrets. NEVER share these with anyone!
-CLIENT_KEY = "80X3nqLNYiTtQkeu5xNmGBV8z"
-CLIENT_SECRET = "oELTxT0EVNWjJFRXK7hlu0ip255e0uEo3swqkHXZeGP2DJkbQQ"
+CLIENT_KEY = "4Vw0po0lRx2v0E1odV2VbUDww"
+CLIENT_SECRET = "NBdRk244bB3vdCBKewlOnfTQeIiEk4Dcqq6D89jDaQFwrJUkDj"
 
 
 API_URL = "https://api.twitter.com"
@@ -14,15 +22,6 @@ ACCESS_TOKEN_URL = API_URL + "/oauth/access_token"
 TIMELINE_URL = API_URL + "/1.1/statuses/home_timeline.json"
 MENTIONS_URL = API_URL + "/1.1/statuses/mentions_timeline.json"
 
-
-import urlparse
-import json
-import requests
-from requests_oauthlib import OAuth1
-from pprint import pprint
-
-stateFull = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
-stateAbbr = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NM', 'NY', 'NJ', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
 
 def get_request_token():
     """ Get a token allowing us to request user authorization """
@@ -117,24 +116,32 @@ def GetUsernameAndText():
 def find_state(tweet):
     return next((state for state in stateFull if state in tweet), None)
 
-def extract_states():
-    states = []
+#In Function Below I learned how to append multiple values to a repeated key
+def extract_state_and_sn():
+    state_dict= {}
     extracting = GetUsernameAndText()
     
     for sn, text in extracting:
         state = find_state(text)
-        states.append(state)
-    return states
+        state_dict.setdefault(sn,[]).append(state)
+    return state_dict
+    #[('ladygaga', 'Arkansas'), ('BarackObama', 'California')]
+
+# def compose_tweet():
+
 
 def main():
     """ Main function """
-    auth = authorize()
-    x = extract_states()
-    print x
+    authorize()
+    y= extract_state_and_sn()
+    print "-------"*10
+    print y
+    print "-------"*10
 
     # tweets_with_states = extract_states(TweetInfo)
-    #[('ladygaga', 'Arkansas'), ('BarackObama', 'California')]
-
+    
+    #keep track of who i've already tweeted at
+    
     #for (username, tweet) in tweet_list:
     #     parse_state(tweet)
 
