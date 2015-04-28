@@ -11,8 +11,8 @@ stateAbbr = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', '
 
 
 # API secrets. NEVER share these with anyone!
-CLIENT_KEY = "4Vw0po0lRx2v0E1odV2VbUDww"
-CLIENT_SECRET = "NBdRk244bB3vdCBKewlOnfTQeIiEk4Dcqq6D89jDaQFwrJUkDj"
+CLIENT_KEY = "CLIENT_KEY_GOES_HERE"
+CLIENT_SECRET = "CLIENT_SECRET_GOES_HERE"
 
 
 API_URL = "https://api.twitter.com"
